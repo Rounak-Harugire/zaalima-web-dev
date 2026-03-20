@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extensio.ai – Chrome Extension Generator</title>
+    <meta name="description" content="Generate Chrome extensions with AI using a simple prompt.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ═══════════════════════════ LANDING PAGE ═══════════════════════════ -->
+    <div id="landingPage" class="page landing-page active">
+
+        <canvas id="bgCanvas"></canvas>
+
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="noise-overlay"></div>
+
+        <nav class="landing-nav">
+            <div class="nav-logo">
+                <div class="nav-logo-mark">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                        <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" stroke="url(#hexGrad)" stroke-width="1.5" fill="none"/>
+                        <path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="url(#hexGrad)" opacity="0.7"/>
+                        <defs>
+                            <linearGradient id="hexGrad" x1="2" y1="2" x2="26" y2="26">
+                                <stop offset="0%" stop-color="#a78bfa"/>
+                                <stop offset="100%" stop-color="#38bdf8"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">extensio.ai</span>
+            </div>
+            <div class="nav-badge">Beta</div>
+        </nav>
+
+        <main class="landing-main">
+            <div class="landing-eyebrow">
+                <span class="eyebrow-dot"></span>
+                <span>AI-Powered Chrome Extension Builder</span>
+            </div>
+
+            <h1 class="landing-title">
+                <span class="title-line tl-1">Build Chrome</span>
+                <span class="title-line gradient-text tl-2">Extensions</span>
+                <span class="title-line tl-3">In Seconds.</span>
+            </h1>
+
+            <p class="landing-sub">
+                Describe what you want in plain English.<br>
+                Our AI writes the code, packages it, and hands it to you —<br>
+                <em>ready to install.</em>
+            </p>
+
+            <div class="landing-actions">
+                <button class="cta-btn" id="ctaBtn">
+                    <span class="cta-btn-content">
+                        <svg class="cta-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M10 2L12.5 7.5H18L13.5 11L15.5 17L10 13.5L4.5 17L6.5 11L2 7.5H7.5L10 2Z" fill="currentColor"/>
+                        </svg>
+                        Create Your Extension
+                    </span>
+                    <span class="cta-shimmer"></span>
+                </button>
+                <p class="cta-note">Free to use &nbsp;·&nbsp; No account required &nbsp;·&nbsp; Instant download</p>
+            </div>
+
+            <div class="landing-features">
+                <div class="feature-pill">
+                    <span class="pill-icon">⚡</span>
+                    <span>Instant Generation</span>
+                </div>
+                <div class="feature-pill">
+                    <span class="pill-icon">📦</span>
+                    <span>Ready-to-Install ZIP</span>
+                </div>
+                <div class="feature-pill">
+                    <span class="pill-icon">🤖</span>
+                    <span>Gemini AI Powered</span>
+                </div>
+            </div>
+        </main>
+
+        <div class="landing-mockup-wrap">
+            <div class="mockup-window">
+                <div class="mockup-bar">
+                    <span class="dot dot-red"></span>
+                    <span class="dot dot-yellow"></span>
+                    <span class="dot dot-green"></span>
+                    <div class="mockup-url">extensio.ai/generate</div>
+                </div>
+                <div class="mockup-body">
+                    <div class="mockup-prompt-box">
+                        <div class="mp-label">Describe your extension</div>
+                        <div class="mp-text">
+                            <span class="typed-text" id="typedText"></span><span class="cursor-blink">|</span>
+                        </div>
+                    </div>
+                    <div class="mockup-output">
+                        <div class="mo-file mof-1">
+                            <span class="mo-icon">📄</span>
+                            <span>manifest.json</span>
+                            <span class="mo-check">✓</span>
+                        </div>
+                        <div class="mo-file mof-2">
+                            <span class="mo-icon">📜</span>
+                            <span>content.js</span>
+                            <span class="mo-check">✓</span>
+                        </div>
+                        <div class="mo-file mof-3">
+                            <span class="mo-icon">🎨</span>
+                            <span>popup.html</span>
+                            <span class="mo-check">✓</span>
+                        </div>
+                        <div class="mo-file mof-4 mo-final">
+                            <span class="mo-icon">📦</span>
+                            <span>extension.zip</span>
+                            <span class="mo-download">↓ Download</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="landing-footer">
+            <span>Powered by Gemini API &nbsp;·&nbsp; Made with ♥ by Extensio.ai</span>
+        </footer>
+    </div>
+
+    <!-- ═══════════════════════════ GENERATOR PAGE ═══════════════════════════ -->
+    <div id="generatorPage" class="page generator-page">
+
+        <div class="gen-bg-grid"></div>
+        <div class="gen-orb gen-orb-1"></div>
+        <div class="gen-orb gen-orb-2"></div>
+
+        <nav class="gen-nav">
+            <button class="back-btn" id="backBtn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Back
+            </button>
+            <div class="gen-logo">
+                <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+                    <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" stroke="url(#hexGrad2)" stroke-width="1.5" fill="none"/>
+                    <path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="url(#hexGrad2)" opacity="0.7"/>
+                    <defs>
+                        <linearGradient id="hexGrad2" x1="2" y1="2" x2="26" y2="26">
+                            <stop offset="0%" stop-color="#a78bfa"/>
+                            <stop offset="100%" stop-color="#38bdf8"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="logo-text">extensio.ai</span>
+            </div>
+            <div class="nav-right-space"></div>
+        </nav>
+
+        <main class="gen-main">
+            <div class="gen-header">
+                <h2 class="gen-title">What should your<br><span class="gradient-text">extension do?</span></h2>
+                <p class="gen-subtitle">Describe your idea in plain English — we handle the rest</p>
+            </div>
+
+            <div class="gen-card">
+                <div class="gen-card-glow"></div>
+
+                <div class="textarea-wrapper">
+                    <textarea
+                        id="prompt"
+                        placeholder='e.g. "Create an extension that highlights all prices on a page and shows the cheapest item at the top"'
+                        rows="5"
+                        maxlength="500"
+                    ></textarea>
+                    <div class="char-counter"><span id="charCount">0</span> / 500</div>
+                </div>
+
+                <div class="example-chips">
+                    <span class="chips-label">Try an example:</span>
+                    <button class="chip" data-prompt="Create a Chrome extension that adds a dark mode toggle to every website">Dark mode toggle</button>
+                    <button class="chip" data-prompt="Build an extension that blocks distracting social media sites and shows a motivational quote">Site blocker</button>
+                    <button class="chip" data-prompt="Make an extension that highlights and saves important text snippets from any webpage">Text highlighter</button>
+                </div>
+
+                <button id="generateBtn" class="generate-btn">
+                    <span id="btnText" class="gen-btn-text">Generate Extension</span>
+                    <span class="gen-btn-icon" id="btnIcon">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 1L11 6.5H17L12.5 10L14 16L9 12.5L4 16L5.5 10L1 6.5H7L9 1Z" fill="currentColor"/>
+                        </svg>
+                    </span>
+                    <span class="spinner hidden" id="spinner"></span>
+                </button>
+
+                <div id="statusMessage" class="status-message hidden">
+                    <span class="status-icon" id="statusIcon">⏳</span>
+                    <p id="statusText">Initializing...</p>
+                </div>
+            </div>
+
+            <div class="gen-steps">
+                <div class="step">
+                    <div class="step-num">01</div>
+                    <div class="step-label">Describe</div>
+                    <div class="step-desc">Tell us what you want</div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-num">02</div>
+                    <div class="step-label">Generate</div>
+                    <div class="step-desc">AI writes the code</div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-num">03</div>
+                    <div class="step-label">Download</div>
+                    <div class="step-desc">Get your ZIP file</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

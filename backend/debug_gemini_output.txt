@@ -1,0 +1,5 @@
+{
+  "manifest.json": "{\n  \"manifest_version\": 3,\n  \"name\": \"Green Text\",\n  \"version\": \"1.0\",\n  \"description\": \"Turns all text on a webpage green.\",\n  \"content_scripts\": [\n    {\n      \"matches\": [\"<all_urls>\"],\n      \"js\": [\"content.js\"],\n      \"run_at\": \"document_start\"\n    }\n  ],\n  \"action\": {\n    \"default_popup\": \"popup.html\"\n  }\n}",
+  "content.js": "const style = document.createElement('style');\nstyle.textContent = `\n  * {\n    color: green !important;\n  }\n`;\n\n// Append the style to the head or documentElement as early as possible\n(document.head || document.documentElement).appendChild(style);\n",
+  "popup.html": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Green Text</title>\n  <style>\n    body {\n      font-family: sans-serif;\n      padding: 10px;\n      min-width: 150px;\n      text-align: center;\n    }\n    h1 {\n      color: green;\n      font-size: 1.2em;\n    }\n    p {\n      font-size: 0.9em;\n    }\n  </style>\n</head>\n<body>\n  <h1>Green Text Extension</h1>\n  <p>All text on the current page should be green!</p>\n</body>\n</html>"
+}
